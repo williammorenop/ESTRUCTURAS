@@ -57,7 +57,7 @@ void ArbolBinarioOrd<T>::posOrden(NodoBinario<T> *n, queue<T> &q) {
   }
 }
 
-template <class T> 
+template <class T>
 void ArbolBinarioOrd<T>::nivelOrden(queue<T>&que)
 {
 	queue<NodoBinario<T>*> q;
@@ -73,7 +73,7 @@ void ArbolBinarioOrd<T>::nivelOrden(queue<T>&que)
 			q.insert(n->obtenerHijoDer);
 	}
 }
-template <class T> 
+template <class T>
 int ArbolBinarioOrd<T>::altura()
 {
 	return altura(this->raiz);
@@ -124,17 +124,22 @@ template <class T> bool ArbolBinarioOrd<T>::buscar(T &val) {
 
 template <class T> NodoBinario<T>*  ArbolBinarioOrd<T>::buscar(NodoBinario<T> *n, T &val) {
 
-  if (n->obtenerDato() != NULL) {
+  if (n->obtenerDato() != NULL)
+  {
     if (n->dato == val) {
       return n;
     }
-	NodoBinario<T>* temp=buscar(n->obtenerHijoIzq);
-    if (temp!=NULL) {
-      return temp;
+    if( n->obtenerDato > val ){
+    	NodoBinario<T>* temp=buscar(n->obtenerHijoIzq);
+        if (temp!=NULL) {
+          return temp;
+        }
     }
-	temp=buscar(n->obtenerHijoDer);
-    if (temp!=NULL) {
-      return temp;
+    else if( n->obtenerDato < val){
+    	temp=buscar(n->obtenerHijoDer);
+        if (temp!=NULL) {
+          return temp;
+        }
     }
   }
   return NULL;
@@ -160,7 +165,7 @@ template <class T> bool  ArbolBinarioOrd<T>::buscar(NodoBinario<T> *n, T &val) {
 
 template <class T> bool ArbolBinarioOrd<T>::insertar(T &val) {
 
-  if (this->raiz == null) {
+  if (this->raiz == NULL) {
     this->raiz = new NodoBinario(val);
   } else {
     insertar(this->raiz, val);
@@ -171,7 +176,7 @@ template <class T>
 bool ArbolBinarioOrd<T>::insertar(NodoBinario<T> *n, T &val) {
 
   if (val < (n->obtenerDato)) {
-    if (n->obtenerHijoIzq != null) {
+    if (n->obtenerHijoIzq != NULL) {
 
       return insertar(n->obtenerHijoIzq, val);
 
@@ -180,7 +185,7 @@ bool ArbolBinarioOrd<T>::insertar(NodoBinario<T> *n, T &val) {
       return 1;
     }
   } else if (val > (n->obtenerDato)) {
-    if (n->obtenerHijoDer != null) {
+    if (n->obtenerHijoDer != NULL) {
       return insertar(n->obtenerHijoDer, val);
     } else {
 
@@ -191,7 +196,7 @@ bool ArbolBinarioOrd<T>::insertar(NodoBinario<T> *n, T &val) {
   return 0;
 }
 
-template <class T> 
+template <class T>
 bool ArbolBinarioOrd<T>::eliminar(T &val)
 {
 	if(buscar(val)){
@@ -200,26 +205,68 @@ bool ArbolBinarioOrd<T>::eliminar(T &val)
 	}
 	return false;
 }
-template <class T> 
+template <class T>
 NodoBinario<T>* ArbolBinario<T>::eliminar(NodoBinario<T>* n,T&val)
 {
+  NodoBinario<T>* temp=NULL;
 	if(n->obtenerDato==val)
 	{
-		if( n->obtenerHijoDer != NULL )
+		if( n->obtenerHijoDer == NULL && n->obtenerHijoIzq == NULL )
 		{
-			
-		}	
+			delete n;
+      return NULL;
+		}
+    else if( n->obtenerHijoIzq == NULL && n->obtenerHijoDer!= NULL )
+    {
+      temp = n->obtenerHijoDer;
+      n->obtenerHijoDer=NULL;
+      delete n;
+      return temp;
+    }
+    else if( n->obtenerHijoIzq != NULL && n->obtenerHijoDer== NULL )
+    {
+      temp = n->obtenerHijoIzq;
+      n->obtenerHijoIzq=NULL;
+      delete n;
+      return temp;
+    }
+    else
+    {
+      temp = minimoNodo(n);
+      n->obtenerDato=temp->obtenerDato;
+      delete temp;
+    }
 	}
+  else if( n->obtenerDato < val )
+  {
+     n->obtenerHijoDer=eliminar(n->obtenerHijoDer,val);
+     return n;
+  }
+  else if( n->obtenerHijoIzq > val )
+  {
+    n->obtenerHijoIzq=eliminar(n->obtenerHijoIzq,val);
+    return n;
+
+  }
+  return NULL;
+}
+template <class T>
+NodoBinario<T>* &ArbolBinarioOrd<T>::minimoNodo(NodoBinario<T> *n) {
+  if (n->obtenerHijoIzq == NULL) {
+    return n;
+  } else {
+    return minimo(n);
+  }
 }
 template <class T> T &ArbolBinarioOrd<T>::minimo(NodoBinario<T> *n) {
-  if (n->obtenerHijoIzq == null) {
+  if (n->obtenerHijoIzq == NULL) {
     return n->obtenerDato;
   } else {
     return minimo(n->obtenerHijoIzq);
   }
 }
 template <class T> T &ArbolBinarioOrd<T>::maximuswell(NodoBinario<T> *n) {
-  if (n->obtenerHijoDer == null) {
+  if (n->obtenerHijoDer == NULL) {
     return n->obtenerDato;
   } else {
     return maximuswell(n->obtenerHijoDer);

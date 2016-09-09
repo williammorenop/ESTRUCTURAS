@@ -1,13 +1,14 @@
 #include <iostream>
 #include <queue>
 #include <cstdio>
+#include <ctime>
 #include "ArbolBinarioOrd.h"
 
 
 int main ()
 {
   ArbolBinarioOrd<int> ar;
-  int a=1;
+/*  int a=1;
   ar.insertar(a);
   a=5;
   ar.insertar(a);
@@ -35,6 +36,33 @@ int main ()
     q.pop();
   }
   std::cout<<std::endl;
-  std::cout<<"sali"<<std::endl;
+  std::cout<<"sali"<<std::endl;*/
+  srand (time(NULL));
+  for( int i = 0 ; i < 20 ; ++i )
+  {
+    int a=rand()%1000;
+    ar.insertar(a);
+  }
+  std::queue<int> q;
+  ar.preOrden(q);
+  while(!q.empty()){
+    std::cout<<q.front()<<" ";
+    q.pop();
+  }
+  std::cout<<std::endl;
+  std::cout<<"-----------------------------------------------------------"<<std::endl;
+  ar.inOrden(q);
+  while(!q.empty()){
+    std::cout<<q.front()<<" ";
+    q.pop();
+  }
+  std::cout<<std::endl;
+  std::cout<<"-----------------------------------------------------------"<<std::endl;
+  ar.posOrden(q);
+  while(!q.empty()){
+    std::cout<<q.front()<<" ";
+    q.pop();
+  }
+  std::cout<<std::endl;
   return 0;
 }

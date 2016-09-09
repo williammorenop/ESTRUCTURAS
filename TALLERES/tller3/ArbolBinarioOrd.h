@@ -1,22 +1,26 @@
 #ifndef ARBOLBINARIOORD
 #define ARBOLBINARIOORD
 
-template <class T> class ArbolBinarioOrd {
+#include <queue>
+#include "NodoBinario.h"
+template <class T>
+class ArbolBinarioOrd {
 protected:
-  NodoBinario<T> *raiz;
+  NodoBinario<T>* raiz;
 
 public:
-  ArbolBinarioOrd() ArbolBinarioOrd(T &val);
+  ArbolBinarioOrd();
+  ArbolBinarioOrd(T &val);
   ~ArbolBinarioOrd();
   bool esVacio();
   T &datoRaiz();
-  void preOrden(queue<T> &q);
-  void preOrden(NodoBinario<T> *n, queue<T> &q);
-  void inOrden(queue<T> &q);
-  void inOrden(NodoBinario<T> *n, queue<T> &q);
-  void posOrden(queue<T> &q);
-  void posOrden(NodoBinario<T> *n, queue<T> &q);
-  void nivelOrden(queue<T> &que);
+  void preOrden(std::queue<T> &q);
+  void preOrden(NodoBinario<T> *n, std::queue<T> &q);
+  void inOrden(std::queue<T> &q);
+  void inOrden(NodoBinario<T> *n, std::queue<T> &q);
+  void posOrden(std::queue<T> &q);
+  void posOrden(NodoBinario<T> *n, std::queue<T> &q);
+  void nivelOrden(std::queue<T> &que);
   int altura();
   int altura(NodoBinario<T> *n);
   int tamano(int &cont);
@@ -25,8 +29,9 @@ public:
   NodoBinario<T> *buscar(NodoBinario<T> *n, T &val);
   bool insertar(T &val);
   bool insertar(NodoBinario<T> *n, T &val);
+  NodoBinario<T>* eliminar(NodoBinario<T> *n,T &val);
   bool eliminar(T &val);
-  NodoBinario<T> eliminar(NodoBinario<T> *n, T &val);
+  NodoBinario<T>* minimoNodo(NodoBinario<T> *n);
   T &minimo(NodoBinario<T> *n);
   T &maximuswell(NodoBinario<T> *n);
 };

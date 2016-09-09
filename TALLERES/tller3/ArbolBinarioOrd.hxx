@@ -1,16 +1,16 @@
 #include "ArbolBinarioOrd.h"
 #include <queue>
 #include <algorithm>
-template <class T> ArbolBinarioOrd<T>::ArbolBinarioOrd() { this->raiz = NULL; }
+template <class T>
+ArbolBinarioOrd<T>::ArbolBinarioOrd() { this->raiz = NULL; }
 template <class T> ArbolBinarioOrd<T>::ArbolBinarioOrd(T &val) {
   this->raiz = new NodoBinario<T>(val);
 }
 template <class T> ArbolBinarioOrd<T>::~ArbolBinarioOrd() {
-  if(this->raiz->obtenerHijoIzq()!= NULL )
-    delete this->raiz->obtenerHijoIzq();
-  if(this->raiz->obtenerHijoDer()!=NULL)
-    delete this->raiz->obtenerHijoDer();
-  delete this->raiz;
+  if(this->raiz!=NULL){
+
+    delete this->raiz;
+  }
 }
 template <class T> bool ArbolBinarioOrd<T>::esVacio() {
   return this->raiz == NULL;
@@ -25,7 +25,7 @@ template <class T> void ArbolBinarioOrd<T>::preOrden(std::queue<T> &q) {
 
 template <class T>
 void ArbolBinarioOrd<T>::preOrden(NodoBinario<T> *n, std::queue<T> &q) {
-  if (n->obtenerDato() != NULL) {
+  if (n != NULL) {
     q.push(n->obtenerDato());
     preOrden(n->obtenerHijoIzq(), q );
     preOrden(n->obtenerHijoDer(), q );
@@ -39,10 +39,10 @@ template <class T> void ArbolBinarioOrd<T>::inOrden(std::queue<T> &q) {
 template <class T>
 void ArbolBinarioOrd<T>::inOrden(NodoBinario<T> *n, std::queue<T> &q) {
 
-  if (n->obtenerDato() != NULL) {
-    inOrden(n->obtenerHijoIzq()(), q);
+  if (n != NULL) {
+    inOrden(n->obtenerHijoIzq(), q);
     q.push(n->obtenerDato());
-    inOrden(n->obtenerHijoDer()(), q);
+    inOrden(n->obtenerHijoDer(), q);
   }
 }
 
@@ -52,7 +52,7 @@ template <class T> void ArbolBinarioOrd<T>::posOrden(std::queue<T> &q) {
 
 template <class T>
 void ArbolBinarioOrd<T>::posOrden(NodoBinario<T> *n, std::queue<T> &q) {
-  if (n->obtenerDato() != NULL) {
+  if (n != NULL) {
     posOrden(n->obtenerHijoIzq(), q);
     posOrden(n->obtenerHijoDer(), q);
     q.push(n->obtenerDato());
@@ -68,7 +68,7 @@ void ArbolBinarioOrd<T>::nivelOrden(std::queue<T>&que)
 	{
 		NodoBinario<T>* n=q.front();
 		q.pop();
-		que.insert(n->obtenerDato);
+		que.insert(n->obtenerDato());
 		if( n->obtenerHijoIzq() != NULL )
 			q.insert(n->obtenerHijoIzq());
 		if( n->obtenerHijoDer() != NULL)
@@ -97,12 +97,13 @@ int ArbolBinarioOrd<T>::altura( NodoBinario<T>* n)
 }
 
 template <class T> int ArbolBinarioOrd<T>::tamano(int &cont) {
+  cont=0;
   tamano(this->raiz, cont);
 }
 template <class T>
 void ArbolBinarioOrd<T>::tamano(NodoBinario<T> *n, int &cont) {
 
-  if (n->obtenerDato() != NULL) {
+  if (n != NULL) {
     tamano(n->obtenerHijoIzq(), cont);
     tamano(n->obtenerHijoDer(), cont);
     cont++;
@@ -127,19 +128,19 @@ template <class T> bool ArbolBinarioOrd<T>::buscar(T &val) {
 template <class T> NodoBinario<T>*  ArbolBinarioOrd<T>::buscar(NodoBinario<T> *n, T &val) {
 
   NodoBinario<T>* temp=NULL;
-  if (n->obtenerDato() != NULL)
+  if (n != NULL)
   {
-    if (n->dato == val) {
+    if (n->obtenerDato() == val) {
       return n;
     }
-    if( n->obtenerDato > val ){
-    	temp=buscar(n->obtenerHijoIzq());
+    if( n->obtenerDato() > val ){
+    	temp=buscar(n->obtenerHijoIzq(),val);
         if (temp!=NULL) {
           return temp;
         }
     }
-    else if( n->obtenerDato < val){
-    	temp=buscar(n->obtenerHijoDer());
+    else if( n->obtenerDato() < val){
+    	temp=buscar(n->obtenerHijoDer(),val);
         if (temp!=NULL) {
           return temp;
         }
@@ -151,7 +152,7 @@ template <class T> NodoBinario<T>*  ArbolBinarioOrd<T>::buscar(NodoBinario<T> *n
 /*
 template <class T> bool  ArbolBinarioOrd<T>::buscar(NodoBinario<T> *n, T &val) {
 
-  if (n->obtenerDato() != NULL) {
+  if (n != NULL) {
     if (n->dato == val) {
       return true;
     }
@@ -178,21 +179,21 @@ template <class T> bool ArbolBinarioOrd<T>::insertar(T &val) {
 template <class T>
 bool ArbolBinarioOrd<T>::insertar(NodoBinario<T> *n, T &val) {
 
-  if (val < (n->obtenerDato)) {
+  if (val < (n->obtenerDato())) {
     if (n->obtenerHijoIzq() != NULL) {
 
       return insertar(n->obtenerHijoIzq(), val);
 
     } else {
-      n->fijarHijoIzq = NodoBinario<T>(val);
+      n->fijarHijoIzq ( new NodoBinario<T>(val));
       return 1;
     }
-  } else if (val > (n->obtenerDato)) {
+  } else if (val > (n->obtenerDato())) {
     if (n->obtenerHijoDer() != NULL) {
       return insertar(n->obtenerHijoDer(), val);
     } else {
 
-      n->fijarHijoDer = NodoBinario<T>(val);
+      n->fijarHijoDer (new NodoBinario<T>(val));
       return 1;
     }
   }
@@ -212,7 +213,7 @@ template <class T>
 NodoBinario<T>* ArbolBinarioOrd<T>::eliminar(NodoBinario<T>* n,T&val)
 {
   NodoBinario<T>* temp=NULL;
-	if(n->obtenerDato==val)
+	if(n->obtenerDato()==val)
 	{
 		if( n->obtenerHijoDer() == NULL && n->obtenerHijoIzq() == NULL )
 		{
@@ -236,16 +237,19 @@ NodoBinario<T>* ArbolBinarioOrd<T>::eliminar(NodoBinario<T>* n,T&val)
     else
     {
       temp = minimoNodo(n);
-      n->obtenerDato=temp->obtenerDato;
-      delete temp;
+      if(temp != NULL){
+        n->fijarDato(temp->obtenerDato());
+        delete temp;
+        return n;
+      }
     }
 	}
-  else if( n->obtenerDato < val )
+  else if( n->obtenerDato() < val )
   {
      n->fijarHijoDer(eliminar(n->obtenerHijoDer(),val));
      return n;
   }
-  else if( n->obtenerHijoIzq() > val )
+  else if( n->obtenerHijoIzq()->obtenerDato() > val )
   {
     n->fijarHijoIzq(eliminar(n->obtenerHijoIzq(),val));
     return n;
@@ -258,20 +262,28 @@ NodoBinario<T>* ArbolBinarioOrd<T>::minimoNodo(NodoBinario<T> *n) {
   if (n->obtenerHijoIzq() == NULL) {
     return n;
   } else {
-    return minimo(n);
+    return minimoNodo(n);
   }
+}
+template <class T> T &ArbolBinarioOrd<T>::minimo() {
+  if( this->raiz!=NULL)
+  return minimo(this->raiz);
 }
 template <class T> T &ArbolBinarioOrd<T>::minimo(NodoBinario<T> *n) {
   if (n->obtenerHijoIzq() == NULL) {
-    return n->obtenerDato;
+    return n->obtenerDato();
   } else {
     return minimo(n->obtenerHijoIzq());
   }
 }
-template <class T> T &ArbolBinarioOrd<T>::maximuswell(NodoBinario<T> *n) {
+template <class T> T &ArbolBinarioOrd<T>::maximo() {
+  if( this->raiz!=NULL)
+  return maximo(this->raiz);
+}
+template <class T> T &ArbolBinarioOrd<T>::maximo(NodoBinario<T> *n) {
   if (n->obtenerHijoDer() == NULL) {
-    return n->obtenerDato;
+    return n->obtenerDato();
   } else {
-    return maximuswell(n->obtenerHijoDer());
+    return maximo(n->obtenerHijoDer());
   }
 }

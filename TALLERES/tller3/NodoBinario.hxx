@@ -8,7 +8,8 @@ NodoBinario <T>::NodoBinario(){
 template<class T>
 NodoBinario <T>::NodoBinario(T& val){
   this->dato=val;
-  this->NodoBinario();
+  this->hijoIzq= NULL;
+  this->hijoDer= NULL;
 }
 
 template<class T>
@@ -20,9 +21,10 @@ NodoBinario<T>::NodoBinario(T& val, NodoBinario<T> *izq, NodoBinario<T> *der){
 
 template<class T>
 NodoBinario <T>::~NodoBinario(){
-  delete this->hijoIzq;
-  delete this->hijoDer;
-  delete this;
+  if( this->hijoIzq!= NULL )
+    delete this->hijoIzq;
+  if( this->hijoDer!= NULL)
+    delete this->hijoDer;
 }
 
 template<class T>

@@ -31,9 +31,11 @@ public:
   bool insertar(NodoBinario<T> *n, T &val);
   NodoBinario<T>* eliminar(NodoBinario<T> *n,T &val);
   bool eliminar(T &val);
-  NodoBinario<T>* minimoNodo(NodoBinario<T> *n);
-  T &minimo(NodoBinario<T> *n);
-  T &maximuswell(NodoBinario<T> *n);
+  NodoBinario<T>* minimoNodo(NodoBinario<T> *);
+  T &minimo(NodoBinario<T> *);
+  T &maximo(NodoBinario<T> *);
+  T &minimo();
+  T &maximo();
 };
 
 #include "ArbolBinarioOrd.hxx"

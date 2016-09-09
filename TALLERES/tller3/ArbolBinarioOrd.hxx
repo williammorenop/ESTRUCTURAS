@@ -194,13 +194,22 @@ bool ArbolBinarioOrd<T>::insertar(NodoBinario<T> *n, T &val) {
 template <class T> 
 bool ArbolBinarioOrd<T>::eliminar(T &val)
 {
-	NodoBinario<T>* borrar=buscar(this->raiz,val);
-	if( borrar!=NULL)
-	{
-		delete borrar;
+	if(buscar(val)){
+	 this->raiz=eliminar(this->raiz,val);
 		return true;
 	}
 	return false;
+}
+template <class T> 
+NodoBinario<T>* ArbolBinario<T>::eliminar(NodoBinario<T>* n,T&val)
+{
+	if(n->obtenerDato==val)
+	{
+		if( n->obtenerHijoDer != NULL )
+		{
+			
+		}	
+	}
 }
 template <class T> T &ArbolBinarioOrd<T>::minimo(NodoBinario<T> *n) {
   if (n->obtenerHijoIzq == null) {

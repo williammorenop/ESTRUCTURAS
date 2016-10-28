@@ -9,13 +9,14 @@ template <typename R>
 class NodeGraph
 {
 private:
-  R dato;
+  R date;
   bool visited;
   std::list< std::pair< NodeGraph< R >* , int > > listN;
 public:
-  NodeGraph (): dato(NULL) , listN ( std::vector< std::pair< NodeGraph* , int > >() ){};
-  NodeGraph (const R datoL ): dato(datoL) , listN ( std::vector< std::pair< NodeGraph* , int > >() ){};
+  NodeGraph ():  listN ( std::list< std::pair< NodeGraph<R>* , int > >() ){};
+  NodeGraph (const R dateL ): date(dateL) , listN ( std::list< std::pair< NodeGraph<R>* , int > >() ){};
   ~NodeGraph();
+  std::list< std::pair< NodeGraph< R >* , int > > getList();
   bool delArist(NodeGraph<R>* n);
   bool addNode( NodeGraph<R>* n , int weight );
   void setVisited( bool s );

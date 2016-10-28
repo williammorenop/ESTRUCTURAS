@@ -18,13 +18,18 @@ bool  NodeGraph< R >::delArist(NodeGraph< R >* n)
     }
   return false;
 }
+template <typename R>
+std::list< std::pair< NodeGraph< R >* , int > > NodeGraph< R >::getList()
+{
+  return this->listN;
+}
 
 template <typename R>
 bool  NodeGraph< R >::addNode( NodeGraph<R>* n , int weight )
 {
   typename std::list< std::pair< NodeGraph< R >* , int > >::iterator it;
   for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
-    if( n == *it.first)
+    if( n == (*it).first)
       return false;
   this->listN.push_back( make_pair(n,weight) );
   return true;

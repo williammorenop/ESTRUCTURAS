@@ -1,0 +1,177 @@
+Willial Alexander Moreno Prieto
+
+  ////////////////////////////////
+ ///////////PUNTO 1//////////////
+////////////////////////////////
+
+1.1 -> PREORDEN (90, 70, 30, 80, 85 y 95)
+       POSORDEN (30, 85, 80, 70, 95 y 90)
+1.2 -> 5
+1.3 -> 4
+
+  ////////////////////////////////
+ ///////////PUNTO 2//////////////
+////////////////////////////////
+
+2.1 -> Verdadero
+2.2 -> Verdadero
+2.3 -> Falso
+2.4 -> Falso
+
+  ////////////////////////////////
+ ///////////PUNTO 3//////////////
+////////////////////////////////
+
+3.1
+
+TAD NODO
+
+
+  	ESTADO:
+            T dato;							dato tipo T que guarda la explesion, contante o variable
+	  				
+            Nodo<T> *hijoIzq;						apuntadopr tipo nodo al hijo izquierda (variable o contante)
+            Nodo<T> *hijoDer;						apuntadopr tipo nodo al hijo Derecha (variable o contante)
+        INTERFAZ:
+            Nodo();							CONSTRUCTOR
+            Nodo(T& val);						CONSTRUCTOR con dato
+            Nodo(T& val, NodoBinario<T> *izq, NodoBinario<T> *der);	CONSTRUCTOR con dato y apuntadores a hijos
+            ~Nodo();							DESTRUCTOR
+            T& obtenerDato();						Retorno el dato que contiene el nodo
+            void fijarDato(T& val);					Modifica el dato quie contiene el nodo
+            Nodo<T>* obtenerHijoIzq();					retorna un apuntador de tipo nodo al hijo izquierdo
+            Nodo<T>* obtenerHijoDer();					retorna un apuntador de tipo nodo al hijo derecho
+            void fijarHijoIzq(NodoBinario<T> *izq);			modifica el apuntador al hijo izquierda
+            void fijarHijoDer(NodoBinario<T> *der);			modifica el apuntador al hijo derecha
+
+
+
+
+
+
+TAD ARBOL
+#include<queue>
+template <class T>
+ESTADO:
+  Nodo<T>* raiz;						Guarda un apuntador al nodo raiz del arbol
+
+INTERFAZ:							
+  Arbol();							CONSTRUCTOR
+  Arbol(T &val);						CONSTRUCTOR
+  Arbol(deque<string> &expresion);				CONSTRUCTOR
+  ~Arbol();							DESTRUCTOR
+  bool esVacio();						True si la raiz es NULL y false de lo contrario
+  T &datoRaiz();						Retorna el dato de la raiz
+  void preOrden(std::queue<T> &q);				Preorden desde la raiz
+  void preOrden(Nodo<T> *n, std::queue<T> &q);			preorden desde un nodo
+  void inOrden(std::queue<T> &q);				inorden desde la raiz
+  void inOrden(Nodo<T> *n, std::queue<T> &q);			inorden desde un nodo
+  void posOrden(std::queue<T> &q);				Posorden desde la raiz
+  void posOrden(Nodo<T> *n, std::queue<T> &q);			posorden desde un nodo
+  void nivelOrden(std::queue<T> &que);				Nivelorden desde la raiz
+  int altura();							Altura desde la raiz
+  int altura(Nodo<T> *n);					altura desde un nodo
+  int tamano(int &cont);					cantidad de nodos
+  void tamano(Nodo<T> *n, int &cont);				tamaño de un subarbol
+  bool buscar(T &val);						recibe el valor del dato a buscar retorna true si el dato esta contenido y false de lo contrario
+  Nodo<T> *buscar(Nodo<T> *n, T &val);				recibe el valor y un nodo desde el cual buscar retorna el nodo
+  bool insertar(Nodo<T> *n, T &val);				recibe el dnodo al cual se le va insertar el dato retorna true si lo incerto bien y false de lo contrario
+  bool eliminar(T &val);					elimina un valor del arbol retorna tru si si o falase si no.
+void  reemplazar(Arbol<T> T &val) ;				remplaza un valor por un arbol
+Nodo<T>*  getRaiz();						retorna la raiz
+								
+
+3.2
+
+	
+	1.
+template<class T>	
+Arbol<T>::Arbol(deque<string> &expresion)
+{
+	deque<int>::iterator it = expresion.begin();
+ 	this->raiz= new Nodo<string>(*it);
+	it++;
+	while (it != mydeque.end() )
+	{
+		if(*it=="AND" )
+		it++;
+	}
+
+}
+
+	2.
+
+template <class T> 
+NodoBinario<T>* Arbol<T>::buscar(T &val) {
+  return buscar(this->raiz, val);
+}
+
+template <class T> 
+Nodo<T>*  Arbol<T>::buscar(Nodo<T> *n, T &val) {
+
+  NodoBinario<T>* temp=NULL;
+  if (n != NULL)
+  {
+    if (n->obtenerDato() == val) {
+      return n;
+    }
+    if( n->obtenerDato() > val ){
+    	temp=buscar(n->obtenerHijoIzq(),val);
+        if (temp!=NULL) {
+          return temp;
+        }
+    }
+    else if( n->obtenerDato() < val){
+    	temp=buscar(n->obtenerHijoDer(),val);
+        if (temp!=NULL) {
+          return temp;
+        }
+    }
+  }
+  return NULL;
+}
+template <class T> 
+Nodo<T>*  Arbol<T>::getRaiz()
+{
+	return this->raiz;
+}
+
+
+template <class T> 
+void Arbol<T>::reemplazar(Arbol<T>* arbolito, T &val) {
+
+	NodoBinario<T>* aux=buscar(this->raiz,val);
+	aux.fijarDato(arbolito->getRaiz());
+	
+}
+
+	3.
+
+// ARBOLITO ES UNA COPIA DE ESTE ARBOL
+template <class T> 
+void Arbol<T>::espejo(Arbol<T>* arbolito) {    
+
+	espejo(arbolito,this->raiz);
+
+}
+
+template <class T> 
+void Arbol<T>::espejo(Arbol<T>* arbolito,Nodo<T> *n) {    
+
+	if(n!=NULL)
+	{
+		espejo(arbolito,this->obtenerhijoder());
+espejo(arbolito,this->obtenerhijoizq());		
+
+	    Nodo<T> *aux;
+		aux=n->obetenerHijoIzq();
+		n->modificarHijoIzq(n->obtenerHijoDer()) ;
+		n->modificarHijoIzq(aux);
+		
+	}
+
+}
+
+
+
+

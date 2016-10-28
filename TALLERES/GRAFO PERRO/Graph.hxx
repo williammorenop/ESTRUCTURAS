@@ -59,6 +59,7 @@ NodeGraph < R >* Graph< R >::findNode( R date )
   return NULL;
 }
 
+
 template <typename R>
 bool  Graph< R >::delNode( R date )
 {
@@ -79,6 +80,8 @@ void Graph< R >::allNode( bool  s )
 template <typename R>
 void  Graph< R >::BFS( NodeGraph<R>* n , std::vector< R >& v)
 {
+  if( n == NULL )
+    return ;
   this->allNode( false );
   std::queue< NodeGraph<R>* > q;
   n->setVisited( true );

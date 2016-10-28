@@ -1,5 +1,6 @@
 #include "NodeGraph.h"
 #include <list>
+#include <vector>
 
 template <typename R>
 NodeGraph::~NodeGraph();

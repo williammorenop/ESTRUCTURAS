@@ -10,7 +10,7 @@ private:
 public:
   Graph():listN(std::list< NodeGraph<R>* >()){};
   ~Graph();
-  std::list< std::NodeGraph<R>*> getList();
+  std::list< NodeGraph<R>* > getList();
   bool addNode( R date );
   bool addArist( R dateOrigin, R dateToGo, int weight );
   NodeGraph< R >* findNode( R date );

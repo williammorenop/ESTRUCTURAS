@@ -18,7 +18,7 @@ Graph::std::list< std::NodeGraph<R>*> getList()
 template <typename R>
 Graph::bool addNode( R date )
 {
-  if( findNode( date ) == NULL )
+  if( findNodeNodete ) == NULL )
     return false;
   this->listN.push_back( new NodeGraph<R>(date) );
   return true;
@@ -123,7 +123,7 @@ Graph::void DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
 template <typename R>
 Graph::void plane(  std::vector< R >& vplane)
 {
-  std::list< std::list< NodoGraph<R>* > :: iterator it;
+  std::list< std::list< NodeGraph<R>* > :: iterator it;
   for(  it = this->listN.begin() ; it != this->listN.end() ; ++it )
   {
      vplane.push_back(*it->getDate());

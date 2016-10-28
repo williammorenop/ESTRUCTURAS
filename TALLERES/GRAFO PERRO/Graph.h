@@ -1,18 +1,19 @@
 #include <list>
 #include <vector>
+#include "NodeGraph.h"
 
 template <typename R>
 class Graph
 {
 private:
-  std::list< NodoGraph<R>* > listN;
+  std::list< NodeGraph<R>* > listN;
 public:
-  Graph():listN(std::list< NodoGraph<R>* >()){};
+  Graph():listN(std::list< NodeGraph<R>* >()){};
   ~Graph();
-  std::list< std::NodoGraph<R>*> getList();
+  std::list< std::NodeGraph<R>*> getList();
   bool addNode( R date );
   bool addArist( R dateOrigin, R dateToGo, int weight );
-  NodoGraph< R >* findNode( R date );
+  NodeGraph< R >* findNode( R date );
   bool delNode( R date );
   bool delNode( NodeGraph<R>* n );
   bool delArist( R dateOrigin, R dateToGo );

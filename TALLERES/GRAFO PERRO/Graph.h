@@ -1,3 +1,6 @@
+#ifndef GRAPH
+#define GRAPH
+
 #include <list>
 #include <vector>
 #include "NodeGraph.h"
@@ -22,3 +25,7 @@ public:
   void DFS_C( NodeGraph<R>* n, std::vector< R >& dfs);
   void plane(  std::vector< R >& vplane);
 };
+
+#include "Graph.hxx"
+
+#endif

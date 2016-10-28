@@ -3,15 +3,15 @@
 #include <vector>
 
 template <typename R>
-NodeGraph::~NodeGraph();
+NodeGraph< R >::~NodeGraph(){};
 
 
 template <typename R>
-NodeGraph::bool delArist(NodeGraph< R >* n)
+bool  NodeGraph< R >::delArist(NodeGraph< R >* n)
 {
-  std::list< std::pair< NodeGraph< R >* , int > >::iterator it;
+  typename std::list< std::pair< NodeGraph< R >* , int > >::iterator it;
   for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
-    if( *it.first == n )
+    if( (*it).first == n )
     {
       this->listN.erase(it);
       return true;
@@ -20,9 +20,9 @@ NodeGraph::bool delArist(NodeGraph< R >* n)
 }
 
 template <typename R>
-NodeGraph::bool addNode( NodeGraph<R>* n , int weight )
+bool  NodeGraph< R >::addNode( NodeGraph<R>* n , int weight )
 {
-  std::list< std::pair< NodeGraph< R >* , int > >::iterator it;
+  typename std::list< std::pair< NodeGraph< R >* , int > >::iterator it;
   for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
     if( n == *it.first)
       return false;
@@ -31,18 +31,19 @@ NodeGraph::bool addNode( NodeGraph<R>* n , int weight )
 }
 
 template <typename R>
-NodeGraph::void setVisited( bool s )
+void  NodeGraph< R >::setVisited( bool s )
 {
     this->visited = s;
 }
 
 template <typename R>
-NodeGraph::bool getVisited( )
+bool  NodeGraph< R >::getVisited( )
 {
   return this->visited;
 }
 
-R getDate()
+template <typename R>
+R NodeGraph< R >::getDate()
 {
   return this->date;
 }

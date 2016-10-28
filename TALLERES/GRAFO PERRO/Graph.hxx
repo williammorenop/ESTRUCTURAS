@@ -1,30 +1,44 @@
-#include "Graph.h"
+
 #include <list>
 #include <vector>
+#include <queue>
 
 template <typename R>
-Graph::  ~Graph()
+bool  Graph< R >::delNode( NodeGraph<R>* n )
 {
-  for(std::list< NodeGraph * >::iterator it = this->listN.begin() ; it != this->listN.end() ; ++it )
+  typename std::list< NodeGraph< R > * >::iterator it;
+  for( it  = this->listN.begin() ; it != this->listN.end() ; ++it )
+  {
+    (*it)->delArist(n);
+  }
+  return 1;
+}
+
+template <typename R>
+Graph< R >::~Graph()
+{
+  typename std::list< NodeGraph< R > * >::iterator it;
+  for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
     delNode( *it );
 }
 
 template <typename R>
-Graph::std::list< std::NodeGraph<R>*> getList()
+std::list< NodeGraph<R>*> Graph< R >:: getList()
 {
   return this->listN;
 }
 
 template <typename R>
-Graph::bool addNode( R date )
+bool  Graph< R >::addNode( R date )
 {
-  if( findNodeNodete ) == NULL )
+  if( findNode( date )  == NULL )
     return false;
   this->listN.push_back( new NodeGraph<R>(date) );
   return true;
+}
 
-template <typename R>}
-Graph::bool addArist( R dateOrigin, R dateToGo, int weight );{
+template <typename R>
+bool  Graph< R >::addArist( R dateOrigin, R dateToGo, int weight ){
     NodeGraph< R >* aux,aux2;
     aux = aux2 = NULL;
     aux=findNode(dateOrigin);
@@ -36,16 +50,17 @@ Graph::bool addArist( R dateOrigin, R dateToGo, int weight );{
 }
 
 template <typename R>
-Graph::NodeGraph< R >* findNode( R date )
+NodeGraph < R >* Graph< R >::findNode( R date )
 {
-  for(std::list< NodeGraph * >::iterator it = this->listN.begin() ; it != this->listN.end() ; ++it )
+  typename std::list< NodeGraph< R > * >::iterator it;
+  for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
       if( *it->getDate() == date )
         return *it;
   return NULL;
 }
 
 template <typename R>
-Graph::bool delNode( R date )
+bool  Graph< R >::delNode( R date )
 {
   NodeGraph<R> * aux = findNode( date );
   if( aux == NULL )
@@ -54,31 +69,10 @@ Graph::bool delNode( R date )
 }
 
 template <typename R>
-Graph::bool delNode( NodeGraph<R>* n )
-{
-  for(std::list< NodeGraph * >::iterator it = this->listN.begin() ; it != this->listN.end() ; ++it )
-  {
-    *it->delArist(n);
-  }
-  return 1;
-
-}
-template <typename R>
-Graph::bool delArist( R dateOrigin, R dateToGo )
-{
-  NodeGraph< R >* aux,aux2;
-  aux = aux2 = NULL;
-  aux=findNode(dateOrigin);
-  aux2=findNode(dateToGo);
-  if( aux == NULL || aux2 == NULL )
-    return 0;
-  return aux->delArist( aux2 );
-}
-template <typename R>
-Graph::void BFS( NodeGraph<R>* n , std::vector< R >& v)
+void  Graph< R >::BFS( NodeGraph<R>* n , std::vector< R >& v)
 {
   this->allNode( false );
-  queue< NodeGraph<R>* > q;
+  std::queue< NodeGraph<R>* > q;
   n->setVisited( true );
   q.push( n );
   while( !q.empty() )
@@ -86,7 +80,7 @@ Graph::void BFS( NodeGraph<R>* n , std::vector< R >& v)
       NodeGraph<R>* now = q.front();
       q.pop();
       v.push_back( now->getDate() );
-      std::list< std::pair< NodeGraph* , int > > :: iterator it;
+      typename std::list< std::pair< NodeGraph< R >* , int > > :: iterator it;
       for(  it = now.getList().begin() ; it != now.getList().end() ; ++it )
       {
         if(!((*it).first->getVisited()))
@@ -99,17 +93,28 @@ Graph::void BFS( NodeGraph<R>* n , std::vector< R >& v)
 }
 
 template <typename R>
-Graph::void DFS( NodeGraph<R>* n, std::vector< R >& dfs)
+bool  Graph< R >::delArist( R dateOrigin, R dateToGo )
+{
+  NodeGraph< R >* aux,aux2;
+  aux = aux2 = NULL;
+  aux=findNode(dateOrigin);
+  aux2=findNode(dateToGo);
+  if( aux == NULL || aux2 == NULL )
+    return 0;
+  return aux->delArist( aux2 );
+}
+template <typename R>
+void  Graph< R >::DFS( NodeGraph<R>* n, std::vector< R >& dfs)
 {
   this->allNode( false );
   DFS_C( n, dfs);
 }
 
 template <typename R>
-Graph::void DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
+void  Graph< R >::DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
 {
    dfs.push_back(n->getDate());
-   std::list< std::pair< NodeGraph* , int > > :: iterator it;
+   typename std::list< std::pair< NodeGraph< R >* , int > > :: iterator it;
    for(  it = n.getList().begin() ; it != n.getList().end() ; ++it )
    {
      if(*it.first->getVisited()==false)
@@ -121,9 +126,9 @@ Graph::void DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
 }
 
 template <typename R>
-Graph::void plane(  std::vector< R >& vplane)
+void  Graph< R >::plane(  std::vector< R >& vplane)
 {
-  std::list< std::list< NodeGraph<R>* > :: iterator it;
+  typename  std::list< NodeGraph<R>* > :: iterator it;
   for(  it = this->listN.begin() ; it != this->listN.end() ; ++it )
   {
      vplane.push_back(*it->getDate());

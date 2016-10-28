@@ -1,3 +1,6 @@
+#ifndef NODEGRAPH
+#define NODEGRAPH
+
 #include <vector>
 #include <list>
 
@@ -13,10 +16,13 @@ public:
   NodeGraph (): dato(NULL) , listN ( std::vector< std::pair< NodeGraph* , int > >() ){};
   NodeGraph (const R datoL ): dato(datoL) , listN ( std::vector< std::pair< NodeGraph* , int > >() ){};
   ~NodeGraph();
-   bool delArist(NodeGraph<R>* n);
+  bool delArist(NodeGraph<R>* n);
   bool addNode( NodeGraph<R>* n , int weight );
   void setVisited( bool s );
   bool getVisited( );
   R getDate();
 
 };
+#include "NodeGraph.hxx"
+
+#endif

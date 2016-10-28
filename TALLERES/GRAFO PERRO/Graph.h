@@ -7,7 +7,7 @@ class Graph
 private:
   std::list< NodoGraph<R>* > listN;
 public:
-  Graph(){}listN:std::list< NodoGraph<R>* >();
+  Graph():listN(std::list< NodoGraph<R>* >()){};
   ~Graph();
   std::list< std::NodoGraph<R>*> getList();
   bool addNode( R date );

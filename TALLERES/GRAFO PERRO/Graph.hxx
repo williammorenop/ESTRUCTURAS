@@ -126,7 +126,7 @@ void  Graph< R >::DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
 {
    dfs.push_back(n->getDate());
    typename std::list< std::pair< NodeGraph< R >* , int > > :: iterator it;
-   for(  it = n.getList().begin() ; it != n.getList().end() ; ++it )
+   for(  it = n->getList().begin() ; it != n->getList().end() ; ++it )
    {
      if(*it.first->getVisited()==false)
      {

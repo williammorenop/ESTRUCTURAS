@@ -31,7 +31,7 @@ bool  NodeGraph< R >::addNode( NodeGraph<R>* n , int weight )
   for( it = this->listN.begin() ; it != this->listN.end() ; ++it )
     if( n == (*it).first)
       return false;
-  this->listN.push_back( make_pair(n,weight) );
+  this->listN.push_back( std::pair< NodeGraph< R >* , int >(n,weight) );
   return true;
 }
 

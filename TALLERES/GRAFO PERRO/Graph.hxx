@@ -31,7 +31,7 @@ std::list< NodeGraph<R>*> Graph< R >:: getList()
 template <typename R>
 bool  Graph< R >::addNode( R date )
 {
-  if( findNode( date )  == NULL )
+  if( findNode( date )  != NULL )
     return false;
   this->listN.push_back( new NodeGraph<R>(date) );
   return true;
@@ -118,6 +118,7 @@ template <typename R>
 void  Graph< R >::DFS( NodeGraph<R>* n, std::vector< R >& dfs)
 {
   this->allNode( false );
+  n->setVisited(true);
   DFS_C( n, dfs);
 }
 
@@ -125,15 +126,25 @@ template <typename R>
 void  Graph< R >::DFS_C( NodeGraph<R>* n, std::vector< R >& dfs)
 {
    dfs.push_back(n->getDate());
+   std::cout << "pase por " << n->getDate() << std::endl;
    typename std::list< std::pair< NodeGraph< R >* , int > > :: iterator it;
+   std::cout << "el tamano  es " << n->getList().size() << std::endl;
+   int cont = 0 ;
    for(  it = n->getList().begin() ; it != n->getList().end() ; ++it )
    {
-     if(*it.first->getVisited()==false)
+     std::cout << "entre " << n->getList().size() << " and " << ++cont << std::endl;
+     std::cout << (it!=n->getList().end()) << " " << std::endl;
+     std::cout << "llegue aca con " << (*it).first->getDate() << " en " << n->getDate() << std::endl;
+     std::cout << " y " << (it!=n->getList().end()) << " and " << (!(*it).first->getVisited()) << std::endl;
+     if(!(*it).first->getVisited())
      {
-       *it.first->setVisited(true);
-       DFS_C(*it.first,dfs);
+       std::cout << "pase" << std::endl;
+       (*it).first->setVisited(true);
+       DFS_C((*it).first,dfs);
      }
+     std::cout << "llegue al final del for " << std::endl;
    }
+   std::cout << "sali "<< std::endl;
 }
 
 template <typename R>
